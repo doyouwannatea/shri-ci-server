@@ -25,6 +25,10 @@ class RepoWorker {
         await rmdir(paths.temp, { recursive: true })
         return await execFile('git', ['clone', repoName, paths.temp])
     }
+
+    static async build(buildCommand) {
+        return exec(`cd ${paths.temp} && ${buildCommand}`)
+    }
 }
 
 module.exports = RepoWorker

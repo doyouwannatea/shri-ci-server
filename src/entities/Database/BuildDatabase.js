@@ -1,6 +1,14 @@
+const RepoWorker = require('../RepoWorker')
 const Database = require('./Database')
+const settingsDatabase = require('./SettingsDatabase')
 
 class BuildDatabase extends Database {
+
+    constructor() {
+        super()
+        this.logs = {}
+    }
+
     async getBuilds() {
         const data = await this.axios.get('/build/list')
         return data.data.data
@@ -12,8 +20,13 @@ class BuildDatabase extends Database {
     }
 
     async getBuildLogs(buildId) {
+        if (this.logs[buildId]) {
+            return this.logs[buildId]
+        }
         const data = await this.axios.get('/build/log', { params: { buildId } })
-        return data.data
+
+        this.logs[buildId] = data.data
+        return this.logs[buildId]
     }
 
     async setBuild(body) {
@@ -21,18 +34,36 @@ class BuildDatabase extends Database {
         return data.data
     }
 
-    async startBuild(buildId, dateTime) {
+    async build(buildId) {
+        const settings = await settingsDatabase.getSettings()
+        const startTime = Date.now()
+
+        try {
+            await this.startBuild(buildId, new Date(Date.now()))
+            const stream = await RepoWorker.build(settings.buildCommand)
+            const endTime = Date.now()
+            this.finishBuild(buildId, endTime - startTime, true, stream.stdout)
+        } catch (error) {
+            const endTime = Date.now()
+
+            try {
+                await this.finishBuild(buildId, endTime - startTime, false, error.response.statusText)
+            } catch (error) {
+                return error
+            }
+        }
+    }
+
+    startBuild(buildId, dateTime) {
         return this.axios.post('/build/start', { buildId, dateTime })
     }
 
-    async finishBuild(buildId, duration, success, buildLog) {
-        const data = await this.axios.post('/build/finish', { buildId, duration, success, buildLog })
-        return data
+    finishBuild(buildId, duration, success, buildLog) {
+        return this.axios.post('/build/finish', { buildId, duration, success, buildLog })
     }
 
-    async cancelBuild(buildId) {
-        const data = await this.axios.post('/build/cancel', { buildId })
-        return data
+    cancelBuild(buildId) {
+        return this.axios.post('/build/cancel', { buildId })
     }
 }
 
