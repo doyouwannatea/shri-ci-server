@@ -1,8 +1,7 @@
 const util = require('util')
 const exec = util.promisify(require('child_process').exec)
 const execFile = util.promisify(require('child_process').execFile)
-
-const { rimraf } = require('./utils')
+const { rmdir } = require('fs/promises')
 const { paths } = require('../../config')
 
 class RepoWorker {
@@ -23,7 +22,7 @@ class RepoWorker {
     }
 
     static async saveRepo(repoName) {
-        await rimraf(paths.temp)
+        await rmdir(paths.temp, { recursive: true })
         return await execFile('git', ['clone', repoName, paths.temp])
     }
 }
