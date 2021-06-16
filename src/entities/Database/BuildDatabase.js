@@ -34,6 +34,9 @@ class BuildDatabase extends Database {
         return data.data
     }
 
+    // ----------------------------------------------------------
+    // Не успел довести до ума 😥
+    // ----------------------------------------------------------
     async build(buildId) {
         const settings = await settingsDatabase.getSettings()
         const startTime = Date.now()
@@ -45,12 +48,7 @@ class BuildDatabase extends Database {
             this.finishBuild(buildId, endTime - startTime, true, stream.stdout)
         } catch (error) {
             const endTime = Date.now()
-
-            try {
-                await this.finishBuild(buildId, endTime - startTime, false, error.response.statusText)
-            } catch (error) {
-                return error
-            }
+            await this.finishBuild(buildId, endTime - startTime, false, error.response.statusText)
         }
     }
 
@@ -65,6 +63,8 @@ class BuildDatabase extends Database {
     cancelBuild(buildId) {
         return this.axios.post('/build/cancel', { buildId })
     }
+    // ----------------------------------------------------------
+    // ----------------------------------------------------------
 }
 
 module.exports = new BuildDatabase()
