@@ -1,0 +1,13 @@
+.settings-page__title {
+    margin: 8px 0;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.settings-page__lead-text {
+    margin-top: 8px;
+    margin-bottom: 22px;
+    letter-spacing: 0.06px;
+    color: #7F8285;
+}

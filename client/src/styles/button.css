@@ -1,0 +1,85 @@
+/* Button */
+.btn {
+    padding: 9px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background-color: #E6E6E6;
+    border-radius: 4px;
+    border: 2px solid transparent;
+
+    font-family: inherit;
+    font-size: 13px;
+    color: #000000;
+}
+
+.btn>*:not(:last-child) {
+    margin-right: 5px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    background-color: #DBDBDB;
+}
+
+.btn:focus {
+    border: 2px solid #B3B3B3;
+    outline: none;
+}
+
+.btn:disabled {
+    cursor: default;
+    background: #F2F2F2;
+    opacity: .5;
+    color: #7F7F7F;
+}
+
+/* Primary button */
+.btn--primary {
+    background-color: #FFCC00;
+}
+
+.btn--primary:hover {
+    background-color: #F2C200;
+}
+
+.btn--primary:focus {
+    border: 2px solid #B38F00;
+}
+
+/* Silent button */
+.btn--silent {
+    padding: 5px 8px;
+}
+
+/* Iconed button */
+.btn--icon {
+    padding-left: 25px;
+    padding-right: 13px;
+    background-position: 8px calc(50% - 1px);
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+/* Contentless button  */
+.btn--contentless {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background-position: center;
+}
+
+@media (max-width: 425px) {
+    .btn--adaptive {
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        background-position: center;
+    }
+
+    .btn--adaptive .btn__content {
+        display: none;
+    }
+}

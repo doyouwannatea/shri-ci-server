@@ -1,0 +1,5 @@
+export const setBuild = build => ({ type: 'SET_BUILD', payload: build })
+export const setRepo = repo => ({ type: 'SET_REPO', payload: repo })
+export const setBranch = branch => ({ type: 'SET_BRANCH', payload: branch })
+export const setDuration = duration => ({ type: 'SET_DURATION', payload: duration })
+export const settle = () => ({ type: 'SETTLE' })

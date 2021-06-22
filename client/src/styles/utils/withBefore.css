@@ -1,0 +1,17 @@
+.with-before {
+    padding-left: 20px;
+    position: relative;
+}
+
+.with-before::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}

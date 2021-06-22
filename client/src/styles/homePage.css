@@ -1,0 +1,15 @@
+.home-page {
+    text-align: center;
+}
+
+.home-page__body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home-page__lead-text {
+    margin-top: 32px;
+    margin-bottom: 24px;
+}

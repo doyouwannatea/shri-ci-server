@@ -1,0 +1,158 @@
+.commit {
+    padding: 12px 24px;
+    padding-left: 56px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 1px rgba(67, 68, 69, 0.3), 0px 1px 1px rgba(67, 68, 69, 0.3);
+    border-radius: 6px;
+    position: relative;
+}
+
+.commit:hover,
+.commit:focus {
+    outline: none;
+    box-shadow: 0px 0px 1px rgba(67, 68, 69, 0.3), 0px 2px 8px rgba(67, 68, 69, 0.3);
+}
+
+.commit>*:first-child>.commit__inner:first-child {
+    margin-bottom: 8px;
+}
+
+.commit--success .commit__number {
+    color: #00B341;
+}
+
+.commit--success .commit__icon {
+    background-image: url(../assets/icons/done_24.svg);
+}
+
+.commit--waiting .commit__number {
+    color: #FF9A00;
+}
+
+.commit--waiting .commit__icon {
+    background-image: url(../assets/icons/clock_24.svg);
+}
+
+.commit--fail .commit__number {
+    color: #FF3333;
+}
+
+.commit--fail .commit__icon {
+    background-image: url(../assets/icons/fail_24.svg);
+}
+
+.commit__inner {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.commit__icon {
+    width: 21px;
+    height: 21px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 12px;
+    left: 24px;
+}
+
+.commit__number {
+    margin-right: 4px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+
+}
+
+.commit__message {
+    font-size: 15px;
+    line-height: 20px;
+    margin: 0;
+}
+
+.commit__hash {
+    margin-left: 4px;
+    letter-spacing: 0.06px;
+    opacity: 0.65;
+}
+
+.commit__branch::before {
+    opacity: .3;
+    background-image: url(../assets/icons/16_code-commit.svg);
+}
+
+.commit__author {
+    margin-left: 10px;
+}
+
+.commit__author::before {
+    opacity: .3;
+    background-image: url(../assets/icons/16_user.svg);
+}
+
+.commit__time {
+    margin-bottom: 12px;
+}
+
+.commit__time::before {
+    opacity: .3;
+    background-image: url(../assets/icons/16_calendar.svg);
+}
+
+.commit__duration::before {
+    opacity: .3;
+    background-image: url(../assets/icons/16_stopwatch.svg);
+}
+
+@media (max-width: 425px) {
+    .commit {
+        padding: 16px 36px;
+    }
+
+    .commit__icon {
+        width: 16px;
+        height: 16px;
+        left: 13px;
+        top: 16px;
+    }
+
+    .commit__number {
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+    .commit__time {
+        margin-bottom: 0;
+    }
+
+    .commit__message,
+    .commit__branch,
+    .commit__hash,
+    .commit__author,
+    .commit__timings {
+        margin-top: 8px;
+    }
+
+    .commit__author {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .commit__inner {
+        margin-bottom: 0 !important;
+    }
+
+    .commit__timings {
+        width: 100%;
+        padding-top: 8px;
+        border-top: 1px solid #F0F2F3;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+}

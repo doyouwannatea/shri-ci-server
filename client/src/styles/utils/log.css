@@ -1,0 +1,19 @@
+.log {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.log__content {
+    margin: 0;
+    padding: 8px 12px;
+    background: #F2F2F2;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+@media (max-width: 425px) {
+    .log {
+        padding: 0;
+    }
+}

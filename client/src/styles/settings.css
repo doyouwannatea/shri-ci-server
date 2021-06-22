@@ -1,0 +1,32 @@
+/* Settings form */
+.settings {
+    max-width: 474px;
+}
+
+.settings__actions {
+    margin-top: 24px;
+    display: flex;
+}
+
+.settings__actions>*:not(:first-child) {
+    margin-left: 8px;
+}
+
+.settings__input {
+    margin-bottom: 18px;
+}
+
+@media (max-width: 425px) {
+    .settings__actions {
+        flex-wrap: wrap;
+    }
+
+    .settings__actions>*:not(:first-child) {
+        margin-top: 12px;
+        margin-left: 0;
+    }
+    
+    .settings__actions > * {
+        width: 100%;
+    }
+}

@@ -1,0 +1,31 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: "YS Text", "Roboto", Arial, Helvetica, sans-serif;
+    -webkit-font-feature-settings: 'liga', 'kern';
+    -moz-font-feature-settings: 'liga', 'kern';
+    font-feature-settings: 'liga', 'kern';
+    color: #000000;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.container {
+    max-width: 856px;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}

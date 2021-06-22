@@ -1,0 +1,32 @@
+.header {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.header__logo {
+    margin: 0;
+    color: #7F8285;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: 0.25px;
+}
+
+.header__link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header__link:hover {
+    opacity: .8;
+}
+
+.header__actions {
+    margin-left: auto;
+    display: flex;
+}
+
+.header__actions>*:not(:first-child) {
+    margin-left: 8px;
+}
