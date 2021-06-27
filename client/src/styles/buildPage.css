@@ -1,0 +1,12 @@
+.build-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.build-page>* {
+    width: 100%;
+}
+
+.build-page__log {
+    flex: 1;
+}

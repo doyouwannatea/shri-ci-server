@@ -1,4 +1,4 @@
-.commit {
+.build {
     padding: 12px 24px;
     padding-left: 56px;
     display: flex;
@@ -10,46 +10,62 @@
     position: relative;
 }
 
-.commit:hover,
-.commit:focus {
+.build:hover,
+.build:focus {
     outline: none;
     box-shadow: 0px 0px 1px rgba(67, 68, 69, 0.3), 0px 2px 8px rgba(67, 68, 69, 0.3);
 }
 
-.commit>*:first-child>.commit__inner:first-child {
+.build>*:first-child>.build__inner:first-child {
     margin-bottom: 8px;
 }
 
-.commit--success .commit__number {
+.build--success .build__number {
     color: #00B341;
 }
 
-.commit--success .commit__icon {
+.build--success .build__icon {
     background-image: url(../assets/icons/done_24.svg);
 }
 
-.commit--waiting .commit__number {
+.build--waiting .build__number {
     color: #FF9A00;
 }
 
-.commit--waiting .commit__icon {
+.build--waiting .build__icon {
     background-image: url(../assets/icons/clock_24.svg);
 }
 
-.commit--fail .commit__number {
+.build--fail .build__number {
     color: #FF3333;
 }
 
-.commit--fail .commit__icon {
+.build--fail .build__icon {
     background-image: url(../assets/icons/fail_24.svg);
 }
 
-.commit__inner {
+.build--cancel .build__number {
+    color: #ffcc00;
+}
+
+.build--cancel .build__icon {
+    background-image: url(../assets/icons/cancel.svg);
+}
+
+.build--progress .build__number {
+    color: #006eb3;
+}
+
+.build--progress .build__icon {
+    background-image: url(../assets/icons/reload.svg);
+}
+
+.build__inner {
     display: flex;
     flex-wrap: wrap;
 }
 
-.commit__icon {
+.build__icon {
     width: 21px;
     height: 21px;
     background-position: center;
@@ -60,7 +76,7 @@
     left: 24px;
 }
 
-.commit__number {
+.build__number {
     margin-right: 4px;
     font-weight: 500;
     font-size: 18px;
@@ -68,85 +84,89 @@
 
 }
 
-.commit__message {
+.build__message {
     font-size: 15px;
     line-height: 20px;
     margin: 0;
 }
 
-.commit__hash {
+.build__hash {
     margin-left: 4px;
     letter-spacing: 0.06px;
     opacity: 0.65;
 }
 
-.commit__branch::before {
+.build__branch::before {
     opacity: .3;
     background-image: url(../assets/icons/16_code-commit.svg);
 }
 
-.commit__author {
+.build__author {
     margin-left: 10px;
 }
 
-.commit__author::before {
+.build__author::before {
     opacity: .3;
     background-image: url(../assets/icons/16_user.svg);
 }
 
-.commit__time {
+.build__time {
     margin-bottom: 12px;
 }
 
-.commit__time::before {
+.build__time::before {
     opacity: .3;
     background-image: url(../assets/icons/16_calendar.svg);
 }
 
-.commit__duration::before {
+.build__duration::before {
     opacity: .3;
     background-image: url(../assets/icons/16_stopwatch.svg);
 }
 
 @media (max-width: 425px) {
-    .commit {
+    .build {
         padding: 16px 36px;
     }
 
-    .commit__icon {
+    .build__icon {
         width: 16px;
         height: 16px;
         left: 13px;
         top: 16px;
     }
 
-    .commit__number {
+    .build__number {
         font-size: 16px;
         line-height: 16px;
     }
 
-    .commit__time {
+    .build__time {
         margin-bottom: 0;
     }
 
-    .commit__message,
-    .commit__branch,
-    .commit__hash,
-    .commit__author,
-    .commit__timings {
+    .build__message {
+        width: 100%;
+    }
+
+    .build__message,
+    .build__branch,
+    .build__hash,
+    .build__author,
+    .build__timings {
         margin-top: 8px;
     }
 
-    .commit__author {
+    .build__author {
         width: 100%;
         margin-left: 0;
     }
 
-    .commit__inner {
+    .build__inner {
         margin-bottom: 0 !important;
     }
 
-    .commit__timings {
+    .build__timings {
         width: 100%;
         padding-top: 8px;
         border-top: 1px solid #F0F2F3;

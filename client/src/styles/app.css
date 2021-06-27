@@ -29,3 +29,11 @@ body {
     padding-left: 16px;
     padding-right: 16px;
 }
+
+.builds-placeholder {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}

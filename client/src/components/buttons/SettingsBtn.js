@@ -18,7 +18,7 @@ const SettingsBtn = ({ children }) => {
         <Button
             action={toSettingsPage}
             icon={settingsIcon}
-            type="silent"
+            variant="silent"
             adaptive>
             {children}
         </Button>

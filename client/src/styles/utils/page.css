@@ -9,5 +9,7 @@
 }
 
 .page__body {
+    margin-top: 8px;
+    margin-bottom: 20px;
     flex: 1;
 }

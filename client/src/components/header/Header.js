@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import '../styles/header.css'
+import '../../styles/header.css'
 
 const Header = ({ children, title }) => {
     return (
@@ -19,7 +19,7 @@ Header.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ]),
-    title: PropTypes.element.isRequired
+    title: PropTypes.element
 }
 
 export default Header

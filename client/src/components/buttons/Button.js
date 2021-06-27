@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 
 import '../../styles/button.css'
 
-const Button = ({ type, action, children, icon, adaptive }) => {
+const Button = ({ type, variant, action, children, icon, adaptive, disabled }) => {
     const classes = ['btn']
 
-    switch (type) {
+    switch (variant) {
         case 'silent':
             classes.push('btn--silent')
             break
@@ -33,7 +33,9 @@ const Button = ({ type, action, children, icon, adaptive }) => {
         <button
             className={classes.join(' ')}
             onClick={action}
-            style={{ backgroundImage: `url(${icon})` }}>
+            style={{ backgroundImage: `url(${icon})` }}
+            disabled={disabled}
+            type={type}>
             <span className="btn__content">
                 {children}
             </span>
@@ -42,14 +44,16 @@ const Button = ({ type, action, children, icon, adaptive }) => {
 }
 
 Button.propTypes = {
-    type: PropTypes.oneOf(['silent', 'primary', 'default']),
-    action: PropTypes.func.isRequired,
+    variant: PropTypes.oneOf(['silent', 'primary', 'default']),
+    type: PropTypes.string,
+    action: PropTypes.func,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node
     ]),
     icon: PropTypes.string,
-    adaptive: PropTypes.bool
+    adaptive: PropTypes.bool,
+    disabled: PropTypes.bool
 }
 
 export default Button

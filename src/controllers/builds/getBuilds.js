@@ -2,9 +2,10 @@ const { buildDatabase, ErrorMessage } = require('../../entities')
 
 module.exports = async (req, res) => {
     try {
-        const data = await buildDatabase.getBuilds()
-        res.json(data)
+        const buildsList = await buildDatabase.getBuilds()
+        res.json(buildsList)
     } catch (error) {
-        res.status(400).json(new ErrorMessage(error.response.statusText))
+        console.log(error)
+        res.status(400).json(new ErrorMessage(error))
     }
 }

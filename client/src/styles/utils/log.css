@@ -1,7 +1,6 @@
 .log {
-    display: block;
+    display: flex;
     margin-top: 12px;
-    margin-bottom: 20px;
 }
 
 .log__content {
@@ -10,6 +9,7 @@
     background: #F2F2F2;
     border-radius: 6px;
     overflow-x: auto;
+    flex: 1;
 }
 
 @media (max-width: 425px) {

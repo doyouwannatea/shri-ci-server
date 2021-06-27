@@ -11,15 +11,14 @@ class SettingsDatabase extends Database {
         if (this.settings)
             return this.settings
 
-        const data = await this.axios.get('/conf')
-        this.settings = data.data.data
-
+        const res = await this.axios.get('/conf')
+        this.settings = res.data.data
         return this.settings
     }
 
     async setSettings(body) {
-        const data = await this.axios.post('/conf', body)
-        this.settings = data.data.data
+        const res = await this.axios.post('/conf', body)
+        this.settings = res.data.data
         return this.settings
     }
 }
