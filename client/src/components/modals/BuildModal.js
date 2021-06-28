@@ -30,9 +30,6 @@ const BuildModal = () => {
     }, [isBuildModalActive])
 
     const closeModal = (e) => {
-        if (e) {
-            e.preventDefault()
-        }
         setHash('')
         setBuildModalAction(false)
     }

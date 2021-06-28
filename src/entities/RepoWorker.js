@@ -95,9 +95,8 @@ class RepoWorker {
             console.error(error)
             let log = ''
 
-            if (error.stdout || error.stderr) {
+            if (error.stdout && error.stderr) {
                 log = concatLog(error)
-                console.log(log)
             }
 
             await buildDatabase.finishBuild(buildId, Date.now() - currentTime, false, log)

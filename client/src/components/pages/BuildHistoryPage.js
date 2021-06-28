@@ -10,6 +10,7 @@ import SettingsBtn from '../buttons/SettingsBtn'
 import BuildsContainer from '../BuildsContainer'
 
 import * as appActions from '../../state/actions/app'
+import * as buildsActions from '../../state/actions/builds'
 
 import playIcon from '../../assets/icons/12_play.svg'
 import '../../styles/buildHistoryPage.css'
@@ -20,10 +21,23 @@ const BuildHistoryPage = () => {
         buildsList: state.builds.buildsList
     }))
 
-    const { setBuildModal } = useActions(appActions)
+    const {
+        setBuildModal,
+        fetchBuilds,
+        increaseQuantity
+    } = useActions({ ...appActions, ...buildsActions })
 
     const openModal = () => {
         setBuildModal(true)
+    }
+
+    const onShowMoreClick = async () => {
+        try {
+            increaseQuantity()
+            await fetchBuilds()
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
@@ -38,7 +52,10 @@ const BuildHistoryPage = () => {
             </Header>
             <main className="page__body container">
                 <BuildsContainer />
-                <Button disabled={!buildsList || !buildsList.length} variant="silent">Show more</Button>
+                <Button
+                    action={onShowMoreClick}
+                    disabled={!buildsList || !buildsList.length}
+                    variant="silent">Show more</Button>
             </main>
             <Footer />
         </div>

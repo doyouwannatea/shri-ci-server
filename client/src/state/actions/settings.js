@@ -66,8 +66,6 @@ export const fetchSettings = () => async (dispatch, getState) => {
         }
 
         dispatch(applySettings(true))
-    } catch (error) {
-        console.error(error)
     } finally {
         dispatch(setLoading(false))
     }

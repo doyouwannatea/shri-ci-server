@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { ToastContainer } from 'react-toastify'
+import { toast, ToastContainer } from 'react-toastify'
 
 import {
   BrowserRouter as Router,
@@ -26,8 +26,19 @@ const App = () => {
   const { fetchSettings } = useActions(settingsActions)
 
   useEffect(() => {
-    fetchSettings()
+    getSettings()
   }, [])
+
+  async function getSettings() {
+    try {
+      toast.info('Getting set up.')
+      await fetchSettings()
+      toast.success('The settings are set.')
+    } catch (error) {
+      console.error(error)
+      toast.error('Setup error.')
+    }
+  }
 
   return (
     <Router>

@@ -24,11 +24,13 @@ const BuildsContainer = () => {
 
     async function getBuildsList() {
         try {
+            toast.info('Fetching builds list.')
             await fetchBuilds()
+            toast.success('Builds list fetched.')
         } catch (error) {
             console.error(error)
             setBuilds([])
-            toast.error('Builds list fetching error')
+            toast.error('Builds list fetching error.')
         }
     }
 

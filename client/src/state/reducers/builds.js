@@ -1,6 +1,7 @@
 const initialState = {
     buildsList: null,
-    loading: false
+    loading: false,
+    quantity: 25
 }
 
 const buildsReducer = (state = initialState, action) => {
@@ -9,6 +10,8 @@ const buildsReducer = (state = initialState, action) => {
             return { ...state, buildsList: action.payload }
         case 'SET_LOADING':
             return { ...state, loading: action.payload }
+        case 'INCREASE_QUANTITY':
+            return { ...state, quantity: state.quantity + 10 }
         default:
             return state
     }

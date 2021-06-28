@@ -1,5 +1,6 @@
 export const setBuilds = buildsList => ({ type: 'SET_BUILDS', payload: buildsList })
 export const setLoading = loading => ({ type: 'SET_LOADING', payload: loading })
+export const increaseQuantity = () => ({ type: 'INCREASE_QUANTITY' })
 
 export const setBuild = (commitHash) => async (dispatch, getState) => {
     dispatch(setLoading(true))
@@ -35,7 +36,7 @@ export const fetchBuilds = () => async (dispatch, getState) => {
     dispatch(setLoading(true))
 
     try {
-        const res = await fetch('http://localhost:8080/api/builds')
+        const res = await fetch(`http://localhost:8080/api/builds?limit=${getState().builds.quantity}`)
 
         if (!res.ok) {
             throw new Error(res.statusText)

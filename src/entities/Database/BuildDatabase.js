@@ -8,8 +8,8 @@ class BuildDatabase extends Database {
         this.logsLength = 20
     }
 
-    async getBuilds() {
-        const res = await this.axios.get('/build/list')
+    async getBuilds(limit) {
+        const res = await this.axios.get(`/build/list?limit=${limit}`)
         return res.data.data
     }
 
