@@ -42,15 +42,18 @@ class RepoWorker {
     }
 
     async pushBuild(config) {
-        this.buildsQueue.push(config)
-
-        if (!this.building) {
-            this.building = true
-            while (this.buildsQueue.length !== 0) {
-                const currentBuildConfig = this.buildsQueue.shift()
-                await this.build(currentBuildConfig)
+        try {
+            this.buildsQueue.push(config)
+            if (!this.building) {
+                this.building = true
+                while (this.buildsQueue.length !== 0) {
+                    const currentBuildConfig = this.buildsQueue.shift()
+                    await this.build(currentBuildConfig)
+                }
+                this.building = false
             }
-            this.building = false
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -95,7 +98,7 @@ class RepoWorker {
             console.error(error)
             let log = ''
 
-            if (error.stdout && error.stderr) {
+            if (error.stdout || error.stderr) {
                 log = concatLog(error)
             }
 
