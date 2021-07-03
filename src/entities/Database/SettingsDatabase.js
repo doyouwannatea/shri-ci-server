@@ -2,8 +2,8 @@ const Database = require('./Database')
 
 class SettingsDatabase extends Database {
 
-    constructor() {
-        super()
+    constructor(axiosInstance) {
+        super(axiosInstance)
         this.settings = null
     }
 
@@ -16,11 +16,11 @@ class SettingsDatabase extends Database {
         return this.settings
     }
 
-    async setSettings(body) {
-        const res = await this.axios.post('/conf', body)
+    async setSettings({ repo, build, branch, duration }) {
+        const res = await this.axios.post('/conf', { repo, build, branch, duration })
         this.settings = res.data.data
         return this.settings
     }
 }
 
-module.exports = new SettingsDatabase()
+module.exports = SettingsDatabase

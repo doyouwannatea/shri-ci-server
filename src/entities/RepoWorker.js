@@ -4,7 +4,7 @@ const { rmdir, mkdir } = require('fs/promises')
 const exec = util.promisify(require('child_process').exec)
 
 const { paths } = require('../../config')
-const { buildDatabase } = require('./Database')
+const BuildDatabase = require('./Database/BuildDatabase')
 const { concatLog, exists } = require('./utils')
 
 class RepoWorker {
@@ -17,28 +17,43 @@ class RepoWorker {
         return `https://github.com/${repoName}`
     }
 
-    async getCommitMessage(commitHash) {
-        const res = await exec(`git log --format=%B -n 1 ${commitHash}`, { cwd: paths.repo })
+    async getCommitMessage(commitHash, cwd = paths.repo) {
+        const res = await exec(`git log --format=%B -n 1 ${commitHash}`, { cwd })
         const message = res.stdout
         return message.trim()
     }
 
-    async getCommitBranch(commitHash) {
-        const res = await exec(`git branch -a --contains ${commitHash}`, { cwd: paths.repo })
+    async getCommitBranch(commitHash, cwd = paths.repo) {
+        const res = await exec(`git branch -a --contains ${commitHash}`, { cwd })
         const branches = res.stdout.split('\n')
         return branches[0].replace('*', '').trim()
     }
 
-    async getCommitAuthor(commitHash) {
-        const res = await exec(`git show -s --format=%ae ${commitHash}`, { cwd: paths.repo })
+    async getCommitAuthor(commitHash, cwd = paths.repo) {
+        const res = await exec(`git show -s --format=%ae ${commitHash}`, { cwd })
         const author = res.stdout
         return author.trim()
     }
 
-    async saveRepo(repoName) {
-        await rmdir(paths.repo, { recursive: true })
-        await mkdir(paths.repo)
-        return exec(`git clone ${this.getRepoLink(repoName)} .`, { cwd: paths.repo })
+    async recreateDir(path) {
+        try {
+            await rmdir(path, { recursive: true })
+            await mkdir(path)
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    async cloneRepo(repoLink, config) {
+        return await exec(`git clone ${repoLink} .`, config)
+    }
+
+    async checkout(commitHash, config) {
+        return await exec(`git checkout ${commitHash}`, config)
+    }
+
+    async installDeps(config) {
+        return await exec('npm i', config)
     }
 
     async pushBuild(config) {
@@ -57,8 +72,14 @@ class RepoWorker {
         }
     }
 
-    async build({ buildCommand, commitHash, repoName, buildId, buildDate }) {
-        const buildDir = path.resolve(paths.builds, buildId)
+    async build({ buildCommand,
+        commitHash,
+        repoName,
+        buildId,
+        buildDate
+    }, cwd = paths.builds) {
+        const buildDatabase = new BuildDatabase()
+        const buildDir = path.resolve(cwd, buildId)
         const buildDirConfig = {
             shell: true,
             cwd: buildDir,
@@ -74,12 +95,12 @@ class RepoWorker {
         }
 
         try {
-            if (!(await exists(paths.builds))) {
-                await mkdir(paths.builds)
+            if (!(await exists(cwd))) {
+                await mkdir(cwd)
             }
 
-            await mkdir(buildDir)
-            await exec(`git clone ${this.getRepoLink(repoName)} .`, buildDirConfig)
+            await this.recreateDir(buildDir)
+            await this.cloneRepo(repoName, buildDirConfig)
             await buildDatabase.startBuild(buildId, buildDate)
         } catch (error) {
             console.error(error)
@@ -88,12 +109,14 @@ class RepoWorker {
         }
 
         try {
-            await exec(`git checkout ${commitHash}`, buildDirConfig)
-            await exec('npm i', buildDirConfig)
+            await this.checkout(commitHash, buildDirConfig)
+            await this.installDeps(buildDirConfig)
 
             currentTime = Date.now()
             const log = await exec(buildCommand, buildDirConfig)
-            await buildDatabase.finishBuild(buildId, Date.now() - currentTime, true, concatLog(log))
+            const stringLog = concatLog(log)
+            await buildDatabase.finishBuild(buildId, Date.now() - currentTime, true, stringLog)
+            return stringLog
         } catch (error) {
             console.error(error)
             let log = ''
@@ -110,4 +133,4 @@ class RepoWorker {
     }
 }
 
-module.exports = new RepoWorker()
+module.exports = RepoWorker

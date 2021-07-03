@@ -2,9 +2,9 @@ const Database = require('./Database')
 
 class BuildDatabase extends Database {
 
-    constructor() {
-        super()
-        this.logs = {}
+    constructor(axiosInstance) {
+        super(axiosInstance)
+        this.logs = new Map()
         this.logsLength = 20
     }
 
@@ -19,16 +19,16 @@ class BuildDatabase extends Database {
     }
 
     async getBuildLogs(buildId) {
-        if (this.logs[buildId])
-            return this.logs[buildId]
+        if (this.logs.has(buildId))
+            return this.logs.get(buildId)
 
         const res = await this.axios.get('/build/log', { params: { buildId } })
 
-        if (Object.keys(this.logs).length > this.logsLength)
-            this.logs = {}
+        if (this.logs.size > this.logsLength)
+            this.logs.clear()
 
-        this.logs[buildId] = res.data
-        return this.logs[buildId]
+        this.logs.set(buildId, res.data)
+        return this.logs.get(buildId)
     }
 
     async setBuild(body) {
@@ -37,16 +37,28 @@ class BuildDatabase extends Database {
     }
 
     async startBuild(buildId, dateTime) {
-        return await this.axios.post('/build/start', { buildId, dateTime })
+        try {
+            await this.axios.post('/build/start', { buildId, dateTime })
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     async finishBuild(buildId, duration, success, buildLog) {
-        return await this.axios.post('/build/finish', { buildId, duration, success, buildLog })
+        try {
+            await this.axios.post('/build/finish', { buildId, duration, success, buildLog })
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     async cancelBuild(buildId) {
-        return await this.axios.post('/build/cancel', { buildId })
+        try {
+            await this.axios.post('/build/cancel', { buildId })
+        } catch (error) {
+            console.error(error)
+        }
     }
 }
 
-module.exports = new BuildDatabase()
+module.exports = BuildDatabase

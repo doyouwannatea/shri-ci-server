@@ -6,19 +6,23 @@
   "scripts": {
     "serve": "nodemon src/server.js",
     "start": "node src/server.js",
-    "build": "cd ./client && npm i && npm run build"
+    "build": "cd ./client && npm i && npm run build",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "axios-mock-adapter": "^1.19.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.28.0",
+    "jest": "^27.0.6",
     "nodemon": "^2.0.7"
   }
 }

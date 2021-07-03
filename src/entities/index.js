@@ -1,13 +1,13 @@
 const { buildDatabase, settingsDatabase } = require('./Database')
 const { ErrorMessage, Message } = require('./messages')
-const repoWorker = require('./RepoWorker')
+const RepoWorker = require('./RepoWorker')
 const Build = require('./Build')
 const utils = require('./utils')
 
 module.exports = {
     buildDatabase,
     settingsDatabase,
-    repoWorker,
+    repoWorker: new RepoWorker(),
     Build,
     ErrorMessage,
     Message,

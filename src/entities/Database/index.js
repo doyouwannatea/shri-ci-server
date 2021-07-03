@@ -1,7 +1,7 @@
-const buildDatabase = require('./BuildDatabase')
-const settingsDatabase = require('./SettingsDatabase')
+const BuildDatabase = require('./BuildDatabase')
+const SettingsDatabase = require('./SettingsDatabase')
 
 module.exports = {
-    buildDatabase,
-    settingsDatabase
+    buildDatabase: new BuildDatabase(),
+    settingsDatabase: new SettingsDatabase()
 }
