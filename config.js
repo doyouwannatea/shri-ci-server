@@ -6,8 +6,8 @@ module.exports = {
         builds: path.resolve(__dirname, 'builds'),
         client: path.resolve(__dirname, 'client', 'build'),
         indexHtml: path.resolve(__dirname, 'client', 'build', 'index.html'),
-        testRepo: path.resolve(__dirname, 'tests', 'repo'),
-        testBuilds: path.resolve(__dirname, 'tests', 'builds')
+        testRepo: path.resolve(__dirname, 'src', '__tests__', 'repo'),
+        testBuilds: path.resolve(__dirname, 'src', '__tests__', 'builds')
     },
     port: 8080
 }

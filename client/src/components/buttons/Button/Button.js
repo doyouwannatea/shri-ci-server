@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import '../../styles/button.css'
+import './index.css'
 
 const Button = ({ type, variant, action, children, icon, adaptive, disabled }) => {
     const classes = ['btn']
@@ -31,6 +31,7 @@ const Button = ({ type, variant, action, children, icon, adaptive, disabled }) =
 
     return (
         <button
+            data-testid="button"
             className={classes.join(' ')}
             onClick={action}
             style={{ backgroundImage: `url(${icon})` }}

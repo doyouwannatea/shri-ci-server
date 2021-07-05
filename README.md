@@ -1,15 +1,20 @@
-# React-2. Архитектура
+# School CI server.Tests
 
-## Токен
+## Тесты сервера
 
-Токен храню в переменных окружения используя библиотеку **dotenv**.
+### Unit
 
-`AUTH_TOKEN={token}`
-
-## Запуск
+## Запуск тестов
 
 * `git clone https://github.com/doyouwannatea/shri-node-hw`
-* `git checkout react-2`
+* `git checkout tests`
 * `npm i`
-* `npm run build`
-* `npm start`
+* `npm test`
+
+### P.S
+
+Запуск тестов на сервере и клиенте происходят отдельно
+
+* `cd /client`
+* `npm i`
+* `npm test`
