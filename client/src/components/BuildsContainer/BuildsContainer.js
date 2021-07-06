@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useFetchBuilds } from '../../hooks'
@@ -13,9 +13,9 @@ const BuildsContainer = () => {
     const history = useHistory()
     const buildsList = useSelector(state => state.builds.buildsList)
 
-    const onCommitClick = useCallback(build => () => {
+    const onBuildClick = build => () => {
         history.push(`/build/${build.id}`)
-    }, [history])
+    }
 
     if (!buildsList) return <Loader loading />
     if (!buildsList.length) return <div className="builds-placeholder">Builds not found</div>
@@ -26,7 +26,7 @@ const BuildsContainer = () => {
                 buildsList.map(build =>
                     <Build
                         key={build.id}
-                        onClick={onCommitClick(build)}
+                        onClick={onBuildClick(build)}
                         {...build} />
                 )
             }
