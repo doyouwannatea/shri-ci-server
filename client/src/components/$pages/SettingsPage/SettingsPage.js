@@ -4,10 +4,13 @@ import Footer from '../../Footer'
 import Header from '../../$header/Header'
 import HeaderTitle from '../../$header/HeaderTitle'
 import Settings from '../../$forms/Settings'
+import { useFetchSettingsOnes } from '../../../hooks'
 
 import './SettingsPage.css'
 
 const SettingsPage = () => {
+    useFetchSettingsOnes()
+
     return (
         <div className="page settings-page">
             <Header title={<HeaderTitle />} />

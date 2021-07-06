@@ -15,13 +15,10 @@ import BuildPage from '../$pages/BuildPage'
 import SettingsPage from '../$pages/SettingsPage'
 import BuildModal from '../$modals/BuildModal'
 
-import { useFetchSettings } from '../../hooks'
-
 import './App.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  useFetchSettings()
   const { allSettled } = useSelector(state => state.settings)
 
   return (

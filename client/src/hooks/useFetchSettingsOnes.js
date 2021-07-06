@@ -1,13 +1,16 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { fetchSettings } from '../state/actions/settings'
 
-const useFetchSettings = () => {
+const useFetchSettingsOnes = () => {
+    const allSettled = useSelector(state => state.settings.allSettled)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        fetchAsync()
+        if (!allSettled) {
+            fetchAsync()
+        }
     }, [])
 
     async function fetchAsync() {
@@ -21,4 +24,4 @@ const useFetchSettings = () => {
         }
     }
 }
-export default useFetchSettings
+export default useFetchSettingsOnes

@@ -33,8 +33,8 @@ const Settings = () => {
     const submitHandler = async (e) => {
         e.preventDefault()
 
-        if (settings.loading)
-            return toast.info('The repository is being copied, please wait.')
+        if (settings.loading
+        ) return toast.info('The repository is being copied, please wait.')
 
         if (settings.allSettled
             && repo.trim() === settings.repo
@@ -43,29 +43,25 @@ const Settings = () => {
             && parseInt(duration) === settings.duration
         ) return toast.info('These are your current settings.')
 
-        if (repo && build && branch && duration > -1) {
-            setRepoAction(repo)
-            setBranchAction(branch)
-            setBuildAction(build)
-            setDurationAction(duration)
-            try {
-                toast.info('Setting preferences.')
-                await setSettingsAction()
-                toast.success('The settings are set.')
-            } catch (error) {
-                console.error(error)
-                setRepoAction('')
-                setBranchAction('')
-                setBuildAction('')
-                setDurationAction(0)
-                fetchSettingsAction()
-                toast.error('Setup error.')
-                toast.info('Retrieving old settings.')
-            }
-            return
-        }
+        setRepoAction(repo)
+        setBranchAction(branch)
+        setBuildAction(build)
+        setDurationAction(duration)
 
-        toast.error('Incorrect data entry.')
+        try {
+            toast.info('Setting preferences.')
+            await setSettingsAction()
+            toast.success('The settings are set.')
+        } catch (error) {
+            console.error(error)
+            setRepoAction('')
+            setBranchAction('')
+            setBuildAction('')
+            setDurationAction(0)
+            fetchSettingsAction()
+            toast.error('Setup error.')
+            toast.info('Retrieving old settings.')
+        }
     }
 
     function cancelSettings() {
@@ -76,7 +72,7 @@ const Settings = () => {
     }
 
     return (
-        <form onSubmit={submitHandler} className="settings">
+        <form onSubmit={submitHandler} className="settings" data-testid="settings-form">
             <FormInput
                 className="settings__input"
                 value={repo}
@@ -117,7 +113,7 @@ const Settings = () => {
             </div>
 
             <div className="settings__actions">
-                <Button disabled={settings.loading} variant="primary">Save</Button>
+                <Button disabled={settings.loading} variant="primary" data-testid="submit-btn">Save</Button>
                 <Button disabled={settings.loading} type="button" action={cancelSettings}>Cancel</Button>
             </div>
         </form>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { useFetchBuilds } from '../../hooks'
 
 import Build from '../Build/Build'
 import Loader from '../Loader/Loader'
@@ -9,7 +8,6 @@ import Loader from '../Loader/Loader'
 import './BuildsContainer.css'
 
 const BuildsContainer = () => {
-    useFetchBuilds()
     const history = useHistory()
     const buildsList = useSelector(state => state.builds.buildsList)
 
