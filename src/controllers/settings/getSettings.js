@@ -12,6 +12,7 @@ module.exports = async (req, res) => {
         res.json(settings)
     } catch (error) {
         console.error(error)
+        await repoWorker.recreateDir(paths.repo)
         res.status(400).json(new ErrorMessage(error.message))
     }
 }

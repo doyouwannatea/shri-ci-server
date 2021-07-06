@@ -4,23 +4,27 @@ import { useSelector } from 'react-redux'
 import ReactDOM from 'react-dom'
 import { toast } from 'react-toastify'
 import FocusTrap from 'focus-trap-react'
-import { useActions } from '../../../hooks/useActions'
 import { setBuildModal } from '../../../state/actions/app'
 import { setBuild } from '../../../state/actions/builds'
 
 import Button from '../../$buttons/Button'
 import FormInput from '../../$forms/FormInput'
 
+import { useActions } from '../../../hooks'
+
 import './BuildModal.css'
 
 const BuildModal = () => {
-    const history = useHistory()
+    const isBuildModalActive = useSelector(state => state.app.isBuildModalActive)
+    const loading = useSelector(state => state.builds.loading)
     const [hash, setHash] = useState('')
-    const { isBuildModalActive, loading } = useSelector(state => ({
-        isBuildModalActive: state.app.isBuildModalActive,
-        loading: state.builds.loading
-    }))
-    const [setBuildModalAction, setBuildAction] = useActions([setBuildModal, setBuild])
+
+    const {
+        setBuildModal: setBuildModalAction,
+        setBuild: setBuildAction
+    } = useActions({ setBuildModal, setBuild })
+
+    const history = useHistory()
 
     useEffect(() => {
         if (isBuildModalActive) document.body.classList.add('overflow-hidden')
@@ -29,7 +33,7 @@ const BuildModal = () => {
         return () => document.body.classList.remove('overflow-hidden')
     }, [isBuildModalActive])
 
-    const closeModal = (e) => {
+    const closeModal = () => {
         setHash('')
         setBuildModalAction(false)
     }

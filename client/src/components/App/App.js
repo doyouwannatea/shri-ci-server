@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
-import { toast, ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 
 import {
   BrowserRouter as Router,
@@ -15,30 +15,14 @@ import BuildPage from '../$pages/BuildPage'
 import SettingsPage from '../$pages/SettingsPage'
 import BuildModal from '../$modals/BuildModal'
 
-import { useActions } from '../../hooks/useActions'
-import * as settingsActions from '../../state/actions/settings'
+import { useFetchSettings } from '../../hooks'
 
 import './App.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
+  useFetchSettings()
   const { allSettled } = useSelector(state => state.settings)
-  const { fetchSettings } = useActions(settingsActions)
-
-  useEffect(() => {
-    getSettings()
-  }, [])
-
-  async function getSettings() {
-    try {
-      toast.info('Getting set up.')
-      await fetchSettings()
-      toast.success('The settings are set.')
-    } catch (error) {
-      console.error(error)
-      toast.error('Setup error.')
-    }
-  }
 
   return (
     <Router>

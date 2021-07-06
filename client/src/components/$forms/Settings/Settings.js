@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useActions } from '../../../hooks/useActions'
+import { useActions, useDismissToasts } from '../../../hooks'
 import { toast } from 'react-toastify'
 import * as settingsActions from '../../../state/actions/settings'
 
@@ -11,6 +11,7 @@ import Button from '../../$buttons/Button'
 import './Settings.css'
 
 const Settings = () => {
+    useDismissToasts()
     const settings = useSelector(state => state.settings)
     const {
         setBranch: setBranchAction,
@@ -28,12 +29,6 @@ const Settings = () => {
     useEffect(() => {
         cancelSettings()
     }, [settings])
-
-    useEffect(() => {
-        return () => {
-            toast.dismiss()
-        }
-    }, [])
 
     const submitHandler = async (e) => {
         e.preventDefault()

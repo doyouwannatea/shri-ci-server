@@ -45,15 +45,15 @@ class RepoWorker {
     }
 
     async cloneRepo(repoLink, config) {
-        return await exec(`git clone ${repoLink} .`, config)
+        return exec(`git clone ${repoLink} .`, config)
     }
 
     async checkout(commitHash, config) {
-        return await exec(`git checkout ${commitHash}`, config)
+        return exec(`git checkout ${commitHash}`, config)
     }
 
     async installDeps(config) {
-        return await exec('npm i', config)
+        return exec('npm i', config)
     }
 
     async pushBuild(config) {
@@ -100,7 +100,7 @@ class RepoWorker {
             }
 
             await this.recreateDir(buildDir)
-            await this.cloneRepo(repoName, buildDirConfig)
+            await this.cloneRepo(this.getRepoLink(repoName), buildDirConfig)
             await buildDatabase.startBuild(buildId, buildDate)
         } catch (error) {
             console.error(error)

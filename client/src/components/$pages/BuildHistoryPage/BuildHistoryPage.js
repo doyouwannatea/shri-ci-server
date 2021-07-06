@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useActions } from '../../../hooks/useActions'
+import { useActions } from '../../../hooks'
 
 import Button from '../../$buttons/Button'
 import Footer from '../../Footer'
@@ -15,10 +15,8 @@ import * as buildsActions from '../../../state/actions/builds'
 import playIcon from '../../../assets/icons/12_play.svg'
 
 const BuildHistoryPage = () => {
-    const { repoName, buildsList } = useSelector(state => ({
-        repoName: state.settings.repo,
-        buildsList: state.builds.buildsList
-    }))
+    const repoName = useSelector(state => state.settings.repo)
+    const buildsList = useSelector(state => state.builds.buildsList)
 
     const {
         setBuildModal,

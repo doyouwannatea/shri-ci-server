@@ -1,10 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { toast } from 'react-toastify'
-
-import { useActions } from '../../hooks/useActions'
-import * as buildsActions from '../../state/actions/builds'
+import { useFetchBuilds } from '../../hooks'
 
 import Build from '../Build/Build'
 import Loader from '../Loader/Loader'
@@ -12,31 +9,13 @@ import Loader from '../Loader/Loader'
 import './BuildsContainer.css'
 
 const BuildsContainer = () => {
+    useFetchBuilds()
     const history = useHistory()
-    const buildsList = useSelector(state =>
-        state.builds.buildsList
-    )
-    const { fetchBuilds, setBuilds } = useActions(buildsActions)
+    const buildsList = useSelector(state => state.builds.buildsList)
 
-    useEffect(() => {
-        getBuildsList()
-    }, [])
-
-    async function getBuildsList() {
-        try {
-            toast.info('Fetching builds list.')
-            await fetchBuilds()
-            toast.success('Builds list fetched.')
-        } catch (error) {
-            console.error(error)
-            setBuilds([])
-            toast.error('Builds list fetching error.')
-        }
-    }
-
-    const onCommitClick = build => () => {
+    const onCommitClick = useCallback(build => () => {
         history.push(`/build/${build.id}`)
-    }
+    }, [history])
 
     if (!buildsList) return <Loader loading />
     if (!buildsList.length) return <div className="builds-placeholder">Builds not found</div>
