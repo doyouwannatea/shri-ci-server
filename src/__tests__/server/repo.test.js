@@ -4,7 +4,7 @@ const RepoWorker = require('../../entities/RepoWorker')
 const { paths } = require('../../../config')
 
 describe('работа с репозиторием', () => {
-    const commitHash = '980aaaa'
+    const commitHash = '40f0498'
     const repoWorker = new RepoWorker()
 
     it('получение данных о коммите', async () => {
@@ -37,6 +37,5 @@ describe('работа с репозиторием', () => {
         }, paths.testBuilds)
 
         expect(log).toMatch(/\"test build command\"/)
-        expect().to
     })
 })

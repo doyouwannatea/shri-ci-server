@@ -71,6 +71,7 @@
 * `git clone https://github.com/doyouwannatea/shri-node-hw`
 * `git checkout tests`
 * `npm i`
+* `npm run clone-fake-repo`
 * `npm run build`
 
 В отдельных терминалах запустите `npm start` и `npm run selenium-serve`

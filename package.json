@@ -10,7 +10,8 @@
     "test": "npm run server-test & npm run hermione-test",
     "server-test": "jest --roots ./src/__tests__/server",
     "selenium-serve": "selenium-standalone start",
-    "hermione-test": "node_modules\\.bin\\hermione"
+    "hermione-test": "node_modules\\.bin\\hermione",
+    "clone-fake-repo": "git clone https://github.com/doyouwannatea/test-repo src/__tests__/repo"
   },
   "keywords": [],
   "author": "",
