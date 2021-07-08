@@ -7,10 +7,10 @@
     "serve": "nodemon src/server.js",
     "start": "node src/server.js",
     "build": "cd ./client && npm i && npm run build",
-    "test": "jest --roots ./src/__tests__/server",
+    "test": "npm run server-test & npm run hermione-test",
+    "server-test": "jest --roots ./src/__tests__/server",
     "selenium-serve": "selenium-standalone start",
-    "hermione-test": "node_modules\\.bin\\hermione",
-    "all-tests": "npm test & npm run hermione-test"
+    "hermione-test": "node_modules\\.bin\\hermione"
   },
   "keywords": [],
   "author": "",
