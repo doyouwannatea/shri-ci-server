@@ -16,8 +16,8 @@ class SettingsDatabase extends Database {
         return this.settings
     }
 
-    async setSettings({ repo, build, branch, duration }) {
-        const res = await this.axios.post('/conf', { repo, build, branch, duration })
+    async setSettings(body) {
+        const res = await this.axios.post('/conf', body)
         this.settings = res.data.data
         return this.settings
     }

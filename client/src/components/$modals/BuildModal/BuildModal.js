@@ -56,7 +56,7 @@ const BuildModal = () => {
 
     return ReactDOM.createPortal(
         <FocusTrap>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={submitHandler} data-testid="build-modal-form">
                 <div onClick={closeModal} className="background"></div>
                 <div className="build-modal">
                     <div className="build-modal__title">New build</div>
@@ -65,6 +65,7 @@ const BuildModal = () => {
                     </div>
 
                     <FormInput
+                        testId="build-modal-input"
                         value={hash}
                         setValue={setHash}
                         placeholder="Commit hash"

@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
         repoWorker.pushBuild({
             buildCommand: settings.buildCommand,
             commitHash: commitHash,
-            repoName: settings.repoName,
+            repoName: repoWorker.getRepoLink(settings.repoName),
             buildId: id,
             buildDate: buildDate
         })

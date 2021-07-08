@@ -1,6 +1,6 @@
 jest.unmock('axios')
 const { default: axios } = require('axios')
-const SettingsDatabase = require('../entities/Database/SettingsDatabase')
+const SettingsDatabase = require('../../entities/Database/SettingsDatabase')
 
 jest.mock('axios')
 

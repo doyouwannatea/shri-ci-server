@@ -51,6 +51,7 @@ const BuildHistoryPage = () => {
             <main className="page__body container">
                 <BuildsContainer />
                 <Button
+                    testId="show-more-btn"
                     action={onShowMoreClick}
                     disabled={!buildsList || !buildsList.length}
                     variant="silent">Show more</Button>

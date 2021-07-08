@@ -74,6 +74,7 @@ const Settings = () => {
     return (
         <form onSubmit={submitHandler} className="settings" data-testid="settings-form">
             <FormInput
+                testId="repo-input"
                 className="settings__input"
                 value={repo}
                 setValue={setRepo}
@@ -83,6 +84,7 @@ const Settings = () => {
                 clearBtn />
 
             <FormInput
+                testId="build-command-input"
                 className="settings__input"
                 value={build}
                 setValue={setBuild}
@@ -92,6 +94,7 @@ const Settings = () => {
                 clearBtn />
 
             <FormInput
+                testId="branch-name-input"
                 className="settings__input"
                 value={branch}
                 setValue={setBranch}
@@ -103,6 +106,7 @@ const Settings = () => {
             <div>
                 Synchronize every
                 <FormInput
+                    testId="duration-input"
                     value={String(duration)}
                     setValue={setDuration}
                     type="number"
@@ -113,8 +117,15 @@ const Settings = () => {
             </div>
 
             <div className="settings__actions">
-                <Button disabled={settings.loading} variant="primary" data-testid="submit-btn">Save</Button>
-                <Button disabled={settings.loading} type="button" action={cancelSettings}>Cancel</Button>
+                <Button
+                    disabled={settings.loading}
+                    variant="primary"
+                    testId="submit-btn">Save</Button>
+                <Button
+                    disabled={settings.loading}
+                    type="button"
+                    action={cancelSettings}
+                    testId="cancel-btn">Cancel</Button>
             </div>
         </form>
     )

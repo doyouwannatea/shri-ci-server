@@ -19,7 +19,7 @@ const BuildsContainer = () => {
     if (!buildsList.length) return <div className="builds-placeholder">Builds not found</div>
 
     return (
-        <div className="commits-container">
+        <div className="builds-container">
             {
                 buildsList.map(build =>
                     <Build

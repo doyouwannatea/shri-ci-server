@@ -16,6 +16,7 @@ const SettingsBtn = ({ children }) => {
 
     return (
         <Button
+            testId="settings-btn"
             action={toSettingsPage}
             icon={settingsIcon}
             variant="silent"

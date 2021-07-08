@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Redirect
@@ -19,10 +18,10 @@ import './App.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  const { allSettled } = useSelector(state => state.settings)
+  const allSettled = useSelector(state => state.settings.allSettled)
 
   return (
-    <Router>
+    <div data-testid="app-page">
       <ToastContainer pauseOnHover={false} />
       <BuildModal />
       <Switch>
@@ -31,7 +30,7 @@ const App = () => {
         <Route path="/build/:buildNumber" exact component={BuildPage} />
         <Redirect to="/" />
       </Switch>
-    </Router>
+    </div>
   )
 }
 

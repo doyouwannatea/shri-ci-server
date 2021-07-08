@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import './Button.css'
 
-const Button = ({ type, variant, action, children, icon, adaptive, disabled }) => {
+const Button = ({ type, variant, action, children, icon, adaptive, disabled, testId }) => {
     const classes = ['btn']
 
     switch (variant) {
@@ -31,7 +31,7 @@ const Button = ({ type, variant, action, children, icon, adaptive, disabled }) =
 
     return (
         <button
-            data-testid="button"
+            data-testid={testId || 'button'}
             className={classes.join(' ')}
             onClick={action}
             style={{ backgroundImage: `url(${icon})` }}
@@ -53,6 +53,7 @@ Button.propTypes = {
         PropTypes.node
     ]),
     icon: PropTypes.string,
+    testId: PropTypes.string,
     adaptive: PropTypes.bool,
     disabled: PropTypes.bool
 }

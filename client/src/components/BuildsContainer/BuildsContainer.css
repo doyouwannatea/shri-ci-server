@@ -1,7 +1,7 @@
-.commits-container {
+.builds-container {
     margin-bottom: 8px;
 }
 
-.commits-container>*:not(:last-child) {
+.builds-container>*:not(:last-child) {
     margin-bottom: 8px;
 }

@@ -6,13 +6,16 @@ module.exports = async (req, res) => {
         const settings = await settingsDatabase.getSettings()
         const repoLink = repoWorker.getRepoLink(settings.repoName)
 
-        await repoWorker.recreateDir(paths.repo)
-        await repoWorker.cloneRepo(repoLink, { cwd: paths.repo })
+        try {
+            await repoWorker.recreateDir(paths.repo)
+            await repoWorker.cloneRepo(repoLink, { cwd: paths.repo })
+        } catch (error) {
+            console.error(error)
+        }
 
         res.json(settings)
     } catch (error) {
         console.error(error)
-        await repoWorker.recreateDir(paths.repo)
         res.status(400).json(new ErrorMessage(error.message))
     }
 }

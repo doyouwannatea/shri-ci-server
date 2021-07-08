@@ -74,7 +74,7 @@ class RepoWorker {
 
     async build({ buildCommand,
         commitHash,
-        repoName,
+        repoName: repoLink,
         buildId,
         buildDate
     }, cwd = paths.builds) {
@@ -100,7 +100,7 @@ class RepoWorker {
             }
 
             await this.recreateDir(buildDir)
-            await this.cloneRepo(this.getRepoLink(repoName), buildDirConfig)
+            await this.cloneRepo(repoLink, buildDirConfig)
             await buildDatabase.startBuild(buildId, buildDate)
         } catch (error) {
             console.error(error)

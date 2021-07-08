@@ -15,7 +15,8 @@ const FormInput = (props) => {
         clearBtn,
         inline,
         min,
-        max
+        max,
+        testId
     } = props
 
     const [clearBtnFocus, setClearBtnFocus] = useState(false)
@@ -44,7 +45,7 @@ const FormInput = (props) => {
             </div>
             <div className="input__wrapper">
                 <input
-                    data-testid="input"
+                    data-testid={testId || "input"}
                     style={{ paddingRight: clearBtn ? '28px' : null }}
                     className="input__field"
                     placeholder={placeholder}
@@ -78,6 +79,7 @@ FormInput.propTypes = {
     setValue: PropTypes.func.isRequired,
     min: PropTypes.number,
     max: PropTypes.number,
+    testId: PropTypes.string
 }
 
 export default FormInput

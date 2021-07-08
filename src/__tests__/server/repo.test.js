@@ -1,7 +1,7 @@
 const axios = require('axios')
 const { default: MockAdapter } = require('axios-mock-adapter')
-const RepoWorker = require('../entities/RepoWorker')
-const { paths } = require('../../config')
+const RepoWorker = require('../../entities/RepoWorker')
+const { paths } = require('../../../config')
 
 describe('работа с репозиторием', () => {
     const commitHash = '980aaaa'
