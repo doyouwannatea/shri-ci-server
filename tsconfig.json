@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "target": "ESNext",
+        "lib": [
+            "ESNext"
+        ],
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "commonjs",
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "allowJs": true,
+        "outDir": "dist",
+        "rootDir": "src"
+    },
+    "exclude": [
+        "node_modules",
+        "src/__tests__/"
+    ],
+    "include": [
+        "src"
+    ]
+}

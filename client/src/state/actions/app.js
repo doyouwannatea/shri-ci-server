@@ -1,1 +1,0 @@
-export const setBuildModal = isActive => ({ type: 'SET_BUILD_MODAL', payload: isActive })
