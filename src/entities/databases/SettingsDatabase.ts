@@ -1,4 +1,3 @@
-import { AxiosInstance } from 'axios'
 import { AxiosResponse } from '../../models/Build'
 import { Settings } from '../../models/Settings'
 import Database from './Database'
@@ -7,8 +6,8 @@ export default class SettingsDatabase extends Database {
 
     settings: Settings | null
 
-    constructor(axiosInstance?: AxiosInstance) {
-        super(axiosInstance)
+    constructor() {
+        super()
         this.settings = null
     }
 

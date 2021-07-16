@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 import Database from './Database'
 import { ID } from '../../models'
 import {
@@ -17,16 +17,14 @@ export default class BuildDatabase extends Database {
     logs: Map<ID, Logs>
     logsLength: number
 
-    constructor(axiosInstance?: AxiosInstance) {
-        super(axiosInstance)
+    constructor() {
+        super()
         this.logs = new Map()
         this.logsLength = 20
     }
 
     async getBuilds(limit: string): Promise<BuildsList> {
-        // TODO: попробовать поменять на 
-        // const res = await this.axios.get('/build/list', { params: { limit } })
-        const res = await this.axios.get(`/build/list?limit=${limit}`)
+        const res = await this.axios.get('/build/list', { params: { limit } })
         const data: AxiosResponse<BuildsList> = res.data
         return data.data
     }

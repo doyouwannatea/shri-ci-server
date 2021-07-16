@@ -4,7 +4,7 @@ export type BuildCommand = string
 export type MainBranch = string
 export type Period = number
 
-export interface SettignsResponce {
+export interface SettignsResponse {
     id: ID
     repoName: Name
     buildCommand: BuildCommand
@@ -12,4 +12,4 @@ export interface SettignsResponce {
     period: Period
 }
 
-export interface Settings extends Omit<SettignsResponce, 'id'> { }
+export type Settings = Omit<SettignsResponse, 'id'>

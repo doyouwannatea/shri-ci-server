@@ -10,8 +10,6 @@ export type Duration = number
 export type StartDate = string
 
 export type Logs = string
-// TODO: убрать тип снизу
-export type DateTime = Date | string
 
 export interface BuildItem {
     id: ID

@@ -24,4 +24,3 @@ export interface BuildItem {
 }
 
 export type BuildsList = BuildItem[]
-
