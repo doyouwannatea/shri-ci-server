@@ -1,8 +1,8 @@
 import React from 'react'
 import { formatDistanceStrict, format, parseISO } from 'date-fns'
+import { BuildItem } from '../../../../models/Build'
 
 import './Build.css'
-import { BuildItem } from '../../models/Build'
 
 interface BuildProps extends BuildItem {
     onClick?: (e?: React.MouseEvent) => void

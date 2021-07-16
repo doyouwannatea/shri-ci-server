@@ -1,5 +1,5 @@
-import { ID } from '../../models'
-import { BuildItem, BuildsList, CommitHash, Logs } from '../../models/Build'
+import { ID } from '../../../../models'
+import { BuildItem, BuildsList, CommitHash, Logs } from '../../../../models/Build'
 import { BuildsAction } from '../actionTypes/builds'
 import { AppThunk } from '../reducers'
 

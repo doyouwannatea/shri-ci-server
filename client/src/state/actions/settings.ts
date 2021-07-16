@@ -1,5 +1,5 @@
 import { minutesToMilliseconds } from 'date-fns'
-import { Settings } from '../../models/Settings'
+import { Settings } from '../../../../models/Settings'
 import { SettingsAction } from '../actionTypes/settings'
 import { AppThunk } from '../reducers'
 

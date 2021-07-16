@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useAppSelector } from '../../hooks/useAppSelector'
-import { BuildItem } from '../../models/Build'
+import type { BuildItem } from '../../../../models/Build'
 
 import Build from '../Build/Build'
 import Loader from '../Loader/Loader'

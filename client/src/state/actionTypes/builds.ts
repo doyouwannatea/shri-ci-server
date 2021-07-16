@@ -1,4 +1,4 @@
-import { BuildsList } from '../../models/Build'
+import { BuildsList } from '../../../../models/Build'
 
 interface SetBuilds {
     type: 'SET_BUILDS'

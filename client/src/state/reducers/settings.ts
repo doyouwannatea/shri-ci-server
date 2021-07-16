@@ -1,4 +1,4 @@
-import { Settings } from '../../models/Settings'
+import { Settings } from '../../../../models/Settings'
 import { SettingsAction } from '../actionTypes/settings'
 
 interface SettingsState {

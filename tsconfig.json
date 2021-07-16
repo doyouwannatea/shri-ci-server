@@ -16,14 +16,12 @@
         "isolatedModules": true,
         "noEmit": true,
         "allowJs": true,
-        "outDir": "dist",
-        "rootDir": "src"
+        "outDir": "dist"
     },
     "exclude": [
-        "node_modules",
-        "src/__tests__/"
+        "node_modules"
     ],
     "include": [
-        "src"
+        "src", "models"
     ]
 }

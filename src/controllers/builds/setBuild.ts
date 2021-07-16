@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { CommitHash } from '../../models/Build'
+import { CommitHash } from '../../../models/Build'
 import { repoWorker } from '../../entities/workers/RepoWorker'
 import { buildDatabase } from '../../entities/databases/BuildDatabase'
 import { settingsDatabase } from '../../entities/databases/SettingsDatabase'

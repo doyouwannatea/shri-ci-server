@@ -1,4 +1,4 @@
-import { Settings } from '../../models/Settings'
+import { Settings } from '../../../../models/Settings'
 
 interface SetConfiguration {
     type: 'SET_SETTINGS'

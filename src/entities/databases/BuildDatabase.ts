@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import Database from './Database'
-import { ID } from '../../models'
+import { ID } from '../../../models'
 import {
     BuildItem,
     BuildsList,
@@ -10,7 +10,7 @@ import {
     SetBuildBody,
     SetBuildResponse,
     StartBuildBody
-} from '../../models/Build'
+} from '../../../models/Build'
 
 export default class BuildDatabase extends Database {
 

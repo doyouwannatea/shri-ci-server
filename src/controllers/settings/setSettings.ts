@@ -4,7 +4,7 @@ import { repoWorker } from '../../entities/workers/RepoWorker'
 import { settingsDatabase } from '../../entities/databases/SettingsDatabase'
 import Message from '../../entities/messages/Message'
 import ErrorMessage from '../../entities/messages/ErrorMessage'
-import { Settings } from '../../models/Settings'
+import { Settings } from '../../../models/Settings'
 
 export default async (req: Request, res: Response): Promise<void> => {
     const settings: Settings = req.body

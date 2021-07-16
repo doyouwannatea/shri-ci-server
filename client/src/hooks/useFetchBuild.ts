@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { ID } from '../models'
-import { BuildItem } from '../models/Build'
+import { ID } from '../../../models'
+import { BuildItem } from '../../../models/Build'
 import { fetchBuild, fetchLogs } from '../state/actions/builds'
 import { useAppDispatch } from './useAppDispatch'
 

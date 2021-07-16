@@ -16,7 +16,7 @@ import SettingsPage from '../$pages/SettingsPage'
 import BuildModal from '../$modals/BuildModal'
 
 import './App.css'
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
   const allSettled = useAppSelector(state => state.settings.allSettled)
