@@ -13,7 +13,7 @@ import FormInput from '../../$forms/FormInput'
 import './BuildModal.css'
 import { useAppSelector } from '../../../hooks/useAppSelector'
 import { useAppDispatch } from '../../../hooks/useAppDispatch'
-import type { CommitHash } from '../../../../../models/Build'
+import { CommitHash } from '../../../../../models/Build'
 
 const BuildModal = () => {
     const isBuildModalActive = useAppSelector(state => state.app.isBuildModalActive)

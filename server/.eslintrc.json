@@ -14,7 +14,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "semi": ["warn", "never"],
-        "quotes": ["warn", "single"]
+        "@typescript-eslint/semi": ["warn", "never"],
+        "@typescript-eslint/quotes": ["warn", "single"]
     }
 }

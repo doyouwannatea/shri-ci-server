@@ -6,8 +6,8 @@ import { paths } from '../../config'
 import BuildDatabase from '../databases/BuildDatabase'
 import { concatLog, exists } from '../utils'
 
-import { ChildProcessOutput, Name } from '../../../models'
-import { BuildConfig, BuildConfigsList, CommitHash, CommitMessage } from '../../../models/Build'
+import { Name, ChildProcessOutput } from '../../../../models'
+import { BuildConfig, BuildConfigsList, CommitHash, CommitMessage } from '../../../../models/Build'
 import { ExecOptions, exec } from 'child_process'
 
 const prExec = promisify(exec)

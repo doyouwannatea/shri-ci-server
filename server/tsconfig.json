@@ -14,7 +14,6 @@
         "moduleResolution": "Node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "noEmit": true,
         "allowJs": true,
         "outDir": "dist"
     },
@@ -22,6 +21,7 @@
         "node_modules"
     ],
     "include": [
-        "src", "models"
+        "src", 
+        "../models"
     ]
 }

@@ -1,5 +1,5 @@
-import { AxiosResponse } from '../../../models/Build'
-import { Settings } from '../../../models/Settings'
+import { AxiosResponse } from '../../../../models/Build'
+import { Settings } from '../../../../models/Settings'
 import Database from './Database'
 
 export default class SettingsDatabase extends Database {
