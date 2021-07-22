@@ -10,10 +10,14 @@
 
 ## Запуск
 
-* git clone <https://github.com/doyouwannatea/shri-node-hw>
-* git checkout types
-* npm run build
-* npm start
+```bash
+git clone https://github.com/doyouwannatea/shri-node-hw
+cd ./shri-node-hw
+git checkout types
+npm run install
+npm run build
+npm start
+```
 
 ## Node
 

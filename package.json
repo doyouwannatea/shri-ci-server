@@ -1,0 +1,22 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "cd server && npm i && cd ../client && npm i",
+    "build": "cd server && npm run build && cd ../client && npm run build",
+    "start": "cd server && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doyouwannatea/shri-node-hw.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doyouwannatea/shri-node-hw/issues"
+  },
+  "homepage": "https://github.com/doyouwannatea/shri-node-hw#readme"
+}
