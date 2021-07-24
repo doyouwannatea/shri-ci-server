@@ -3,9 +3,15 @@ import { BuildItem, BuildsList, CommitHash, Logs } from '../../../../models/Buil
 import { BuildsAction } from '../actionTypes/builds'
 import { AppThunk } from '../reducers'
 
-export const setBuilds = (buildsList: BuildsList): BuildsAction => ({ type: 'SET_BUILDS', payload: buildsList })
-export const setLoading = (loading: boolean): BuildsAction => ({ type: 'SET_LOADING', payload: loading })
-export const increaseQuantity = (): BuildsAction => ({ type: 'INCREASE_QUANTITY' })
+export const setBuilds = (buildsList: BuildsList): BuildsAction => (
+    { type: 'SET_BUILDS', payload: buildsList }
+)
+export const setLoading = (loading: boolean): BuildsAction => (
+    { type: 'SET_LOADING', payload: loading }
+)
+export const increaseQuantity = (): BuildsAction => (
+    { type: 'INCREASE_QUANTITY' }
+)
 
 export const pushBuild = (commitHash: CommitHash): AppThunk<Promise<ID>> => async (dispatch, getState) => {
     dispatch(setLoading(true))
