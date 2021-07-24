@@ -1,16 +1,14 @@
 import { resolve } from 'path'
-import { promisify } from 'util'
-import { rmdir, mkdir } from 'fs/promises'
 
 import { paths } from '../../config'
 import BuildDatabase from '../databases/BuildDatabase'
-import { concatLog, exists } from '../utils'
+import FileWorker from './FileWorker'
+import { concatLog } from '../utils'
 
 import { Name, ChildProcessOutput } from '../../../../models'
 import { BuildConfig, BuildConfigsList, CommitHash, CommitMessage } from '../../../../models/Build'
-import { ExecOptions, exec } from 'child_process'
-
-const prExec = promisify(exec)
+import { ExecOptions } from 'child_process'
+import { spawn, exec } from 'child-process-promise'
 
 export default class RepoWorker {
     building: boolean
@@ -26,42 +24,54 @@ export default class RepoWorker {
     }
 
     async getCommitMessage(commitHash: CommitHash, cwd: string = paths.repo): Promise<CommitMessage> {
-        const res = await prExec(`git log --format=%B -n 1 ${commitHash}`, { cwd })
-        const message = res.stdout
+        let message = ''
+        const promise = spawn('git', ['log', '--format=%B', '-n', '1', commitHash], { cwd })
+        promise.childProcess.stdout?.on('data', (buffer: Buffer) => {
+            message += buffer.toString()
+        })
+
+        promise.childProcess.stderr?.on('data', (buffer: Buffer) => {
+            message += buffer.toString()
+        })
+
+        await promise
         return message.trim()
     }
 
     async getCommitBranch(commitHash: CommitHash, cwd: string = paths.repo): Promise<Name> {
-        const res = await prExec(`git branch -a --contains ${commitHash}`, { cwd })
-        const branches = res.stdout.split('\n')
-        return branches[0].replace('*', '').trim()
+        const promise = spawn('git', ['branch', '-a', '--contains', commitHash], { cwd })
+
+        let branch = ''
+        promise.childProcess.stdout?.on('data', (buffer: Buffer) => {
+            const branches = buffer.toString().split('\n')
+            branch = branches[0].replace('*', '').trim()
+        })
+
+        await promise
+        return branch
     }
 
     async getCommitAuthor(commitHash: CommitHash, cwd: string = paths.repo): Promise<Name> {
-        const res = await prExec(`git show -s --format=%ae ${commitHash}`, { cwd })
-        const author = res.stdout
+        let author = ''
+        const promise = spawn('git', ['show', '-s', '--format=%ae', commitHash], { cwd })
+        promise.childProcess.stdout?.on('data', (buffer: Buffer) => {
+            author += buffer.toString()
+        })
+
+        await promise
         return author.trim()
     }
 
-    async recreateDir(path: string): Promise<void> {
-        try {
-            await rmdir(path, { recursive: true })
-            await mkdir(path)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
     async cloneRepo(repoLink: string, config: ExecOptions): Promise<ChildProcessOutput> {
-        return prExec(`git clone ${repoLink} .`, config)
+        return spawn('git', ['clone', repoLink, '.'], config)
     }
 
     async checkout(commitHash: CommitHash, config: ExecOptions): Promise<ChildProcessOutput> {
-        return prExec(`git checkout ${commitHash}`, config)
+        return spawn('git', ['checkout', commitHash], config)
     }
 
     async installDeps(config: ExecOptions): Promise<ChildProcessOutput> {
-        return prExec('npm i', config)
+        return exec('npm i', config)
     }
 
     async pushBuild(config: BuildConfig): Promise<void> {
@@ -89,25 +99,24 @@ export default class RepoWorker {
             buildId,
             buildDate
         } = config
-        const buildDatabase = new BuildDatabase()
-        const buildDir = resolve(cwd, buildId)
-        const buildDirConfig: ExecOptions = {
-            shell: 'cmd.exe',
-            cwd: buildDir,
-            env: {
-                ...process.env,
-                FORCE_COLOR: 'true',
-                TERM: 'xterm-256color'
+
+        const buildDatabase = new BuildDatabase(),
+            fileWorker = new FileWorker(),
+            buildDir = resolve(cwd, buildId),
+            buildDirConfig: ExecOptions = {
+                shell: 'cmd.exe',
+                cwd: buildDir,
+                env: {
+                    ...process.env,
+                    FORCE_COLOR: 'true',
+                    TERM: 'xterm-256color'
+                }
             }
-        }
         let currentTime = Date.now()
 
         try {
-            if (!(await exists(cwd))) {
-                await mkdir(cwd)
-            }
-
-            await this.recreateDir(buildDir)
+            await fileWorker.createDirIfNotExists(cwd)
+            await fileWorker.recreateDir(buildDir)
             await this.cloneRepo(repoLink, buildDirConfig)
             await buildDatabase.startBuild({ buildId, dateTime: buildDate || new Date(currentTime) })
         } catch (error) {
@@ -121,7 +130,7 @@ export default class RepoWorker {
             await this.installDeps(buildDirConfig)
 
             currentTime = Date.now()
-            const output = await prExec(buildCommand, buildDirConfig)
+            const output = await exec(buildCommand, buildDirConfig)
             const buildLog = concatLog(output)
             await buildDatabase.finishBuild({
                 buildId,
@@ -145,7 +154,7 @@ export default class RepoWorker {
                 success: false
             })
         } finally {
-            await rmdir(buildDir, { recursive: true })
+            await fileWorker.rmdir(buildDir)
         }
     }
 }

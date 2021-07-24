@@ -2,9 +2,12 @@ import { Request, Response } from 'express'
 import { paths } from '../../config'
 import { settingsDatabase } from '../../entities/databases/SettingsDatabase'
 import ErrorMessage from '../../entities/messages/ErrorMessage'
+import FileWorker from '../../entities/workers/FileWorker'
 import { repoWorker } from '../../entities/workers/RepoWorker'
 
 export default async (req: Request, res: Response): Promise<void> => {
+    const fileWorker = new FileWorker()
+    
     try {
         const settings = await settingsDatabase.getSettings()
         if (!settings) throw new Error('no settings')
@@ -12,7 +15,7 @@ export default async (req: Request, res: Response): Promise<void> => {
         const repoLink = repoWorker.getRepoLink(settings.repoName)
 
         try {
-            await repoWorker.recreateDir(paths.repo)
+            await fileWorker.recreateDir(paths.repo)
             await repoWorker.cloneRepo(repoLink, { cwd: paths.repo })
         } catch (error) {
             console.error(error)
