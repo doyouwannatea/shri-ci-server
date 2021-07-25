@@ -3,12 +3,13 @@ import { resolve } from 'path'
 import { paths } from '../../config'
 import BuildDatabase from '../databases/BuildDatabase'
 import FileWorker from './FileWorker'
-import { concatLog } from '../utils'
+import { concatLog, spawnWithLog } from '../utils'
 
 import { Name, ChildProcessOutput } from '../../../../models'
 import { BuildConfig, BuildConfigsList, CommitHash, CommitMessage } from '../../../../models/Build'
 import { ExecOptions } from 'child_process'
-import { spawn, exec } from 'child-process-promise'
+import { exec, spawn } from 'child-process-promise'
+import { BuildCommand } from '../../../../models/Settings'
 
 export default class RepoWorker {
     building: boolean
@@ -24,42 +25,24 @@ export default class RepoWorker {
     }
 
     async getCommitMessage(commitHash: CommitHash, cwd: string = paths.repo): Promise<CommitMessage> {
-        let message = ''
-        const promise = spawn('git', ['log', '--format=%B', '-n', '1', commitHash], { cwd })
-        promise.childProcess.stdout?.on('data', (buffer: Buffer) => {
-            message += buffer.toString()
-        })
-
-        promise.childProcess.stderr?.on('data', (buffer: Buffer) => {
-            message += buffer.toString()
-        })
-
-        await promise
-        return message.trim()
+        const {
+            stdout
+        } = await spawnWithLog('git', ['log', '--format=%B', '-n', '1', commitHash], { cwd })
+        return stdout.trim()
     }
 
     async getCommitBranch(commitHash: CommitHash, cwd: string = paths.repo): Promise<Name> {
-        const promise = spawn('git', ['branch', '-a', '--contains', commitHash], { cwd })
-
-        let branch = ''
-        promise.childProcess.stdout?.on('data', (buffer: Buffer) => {
-            const branches = buffer.toString().split('\n')
-            branch = branches[0].replace('*', '').trim()
-        })
-
-        await promise
-        return branch
+        const {
+            stdout
+        } = await spawnWithLog('git', ['branch', '-a', '--contains', commitHash], { cwd })
+        return stdout.split('\n')[0].replace('*', '').trim()
     }
 
     async getCommitAuthor(commitHash: CommitHash, cwd: string = paths.repo): Promise<Name> {
-        let author = ''
-        const promise = spawn('git', ['show', '-s', '--format=%ae', commitHash], { cwd })
-        promise.childProcess.stdout?.on('data', (buffer: Buffer) => {
-            author += buffer.toString()
-        })
-
-        await promise
-        return author.trim()
+        const {
+            stdout
+        } = await spawnWithLog('git', ['show', '-s', '--format=%ae', commitHash], { cwd })
+        return stdout.trim()
     }
 
     async cloneRepo(repoLink: string, config: ExecOptions): Promise<ChildProcessOutput> {
@@ -72,6 +55,14 @@ export default class RepoWorker {
 
     async installDeps(config: ExecOptions): Promise<ChildProcessOutput> {
         return exec('npm i', config)
+    }
+
+    async execBuildCommand(buildCommand: BuildCommand, config: ExecOptions): Promise<string> {
+        const {
+            stderr,
+            stdout
+        } = await spawnWithLog('npm', ['run', buildCommand], config)
+        return concatLog({ stderr, stdout })
     }
 
     async pushBuild(config: BuildConfig): Promise<void> {
@@ -130,8 +121,7 @@ export default class RepoWorker {
             await this.installDeps(buildDirConfig)
 
             currentTime = Date.now()
-            const output = await exec(buildCommand, buildDirConfig)
-            const buildLog = concatLog(output)
+            const buildLog = await this.execBuildCommand(buildCommand, buildDirConfig)
             await buildDatabase.finishBuild({
                 buildId,
                 buildLog,
