@@ -1,5 +1,6 @@
 import React from 'react'
 import { formatDistanceStrict, format, parseISO } from 'date-fns'
+import classNames from 'classnames'
 import { BuildItem } from '../../../../models/Build'
 
 import './Build.css'
@@ -21,27 +22,10 @@ const Build = (props: BuildProps) => {
         status
     } = props
 
-    const className = ['build']
-
-    switch (status) {
-        case 'Success':
-            className.push('build--success')
-            break
-        case 'Waiting':
-            className.push('build--waiting')
-            break
-        case 'Fail':
-            className.push('build--fail')
-            break
-        case 'Canceled':
-            className.push('build--cancel')
-            break
-        case 'InProgress':
-            className.push('build--progress')
-            break
-        default:
-            break
-    }
+    const className = classNames({
+        'build': true,
+        [`build--${status.toLowerCase()}`]: true
+    })
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLElement>) => {
         if (onClick && e.code === 'Enter') {
@@ -52,7 +36,7 @@ const Build = (props: BuildProps) => {
     const getDuration = (ms: number) => formatDistanceStrict(0, ms)
 
     return (
-        <div onKeyPress={onKeyPress} onClick={onClick} tabIndex={0} className={className.join(' ')}>
+        <div onKeyPress={onKeyPress} onClick={onClick} tabIndex={0} className={className}>
 
             <div>
                 <div className="build__inner">

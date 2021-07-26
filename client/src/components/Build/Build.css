@@ -44,19 +44,19 @@
     background-image: url(../../assets/icons/fail_24.svg);
 }
 
-.build--cancel .build__number {
+.build--canceled .build__number {
     color: #ffcc00;
 }
 
-.build--cancel .build__icon {
+.build--canceled .build__icon {
     background-image: url(../../assets/icons/cancel.svg);
 }
 
-.build--progress .build__number {
+.build--inprogress .build__number {
     color: #006eb3;
 }
 
-.build--progress .build__icon {
+.build--inprogress .build__icon {
     background-image: url(../../assets/icons/reload.svg);
 }
 

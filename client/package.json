@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "ansi-to-html": "^0.6.15",
+    "classnames": "^2.3.1",
     "date-fns": "^2.22.1",
     "focus-trap-react": "^8.6.0",
     "html-react-parser": "^1.2.7",
@@ -35,8 +36,14 @@
       "react-app/jest"
     ],
     "rules": {
-      "semi": ["warn", "never"],
-      "quotes": ["warn", "single"]
+      "semi": [
+        "warn",
+        "never"
+      ],
+      "quotes": [
+        "warn",
+        "single"
+      ]
     }
   },
   "browserslist": {

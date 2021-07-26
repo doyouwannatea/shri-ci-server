@@ -1,4 +1,6 @@
+import classNames from 'classnames'
 import React, { useState } from 'react'
+
 
 import './FormInput.css'
 
@@ -48,13 +50,14 @@ const FormInput = (props: FormInputProps) => {
         }
     }
 
-    const className = ['input']
-    if (props.className) className.push(props.className)
-    if (short) className.push('input--short')
-    if (inline) className.push('input--inline')
+    const className = classNames({
+        'input': true,
+        'input--short': short,
+        'input--inline': inline
+    }, props.className)
 
     return (
-        <label className={className.join(' ')} data-testid="form-input">
+        <label className={className} data-testid="form-input">
             <div style={{ margin: !label ? '0px' : undefined }} className="input__label">
                 {label}
                 {required && <span className="require-star" data-testid="require-star">*</span>}

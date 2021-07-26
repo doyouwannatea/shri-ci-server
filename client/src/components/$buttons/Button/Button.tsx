@@ -1,9 +1,9 @@
 import React from 'react'
+import classNames from 'classnames'
 
 import './Button.css'
 
 type Action = (e: React.MouseEvent) => void
-
 interface ButtonProps {
     variant?: 'silent' | 'primary' | 'default'
     type?: 'submit' | 'reset' | 'button'
@@ -15,36 +15,20 @@ interface ButtonProps {
     disabled?: boolean
 }
 
-const Button = ({ type, variant, action, children, icon, adaptive, disabled, testId }: ButtonProps) => {
-    const classes = ['btn']
-
-    switch (variant) {
-        case 'silent':
-            classes.push('btn--silent')
-            break
-        case 'primary':
-            classes.push('btn--primary')
-            break
-        default:
-            break
-    }
-
-    if (icon) {
-        classes.push('btn--icon')
-    }
-
-    if (!children) {
-        classes.push('btn--contentless')
-    }
-
-    if (adaptive) {
-        classes.push('btn--adaptive')
-    }
+const Button = (props: ButtonProps) => {
+    const { type, variant, action, children, icon, adaptive, disabled, testId } = props
+    const className = classNames({
+        'btn': true,
+        'btn--icon': Boolean(icon),
+        'btn--contentless': !Boolean(children),
+        'btn--adaptive': adaptive,
+        [`btn--${variant}`]: true
+    })
 
     return (
         <button
             data-testid={testId || 'button'}
-            className={classes.join(' ')}
+            className={className}
             onClick={action}
             style={{ backgroundImage: `url(${icon})` }}
             disabled={disabled}
